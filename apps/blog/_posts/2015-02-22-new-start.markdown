@@ -1,0 +1,29 @@
+---
+layout: post
+title: "New Start"
+date: 2015-02-22 14:10:02 -0500
+comments: true
+description: A new start.
+published: false
+categories:
+  - misc
+---
+
+
+I can't remember exactly when I have registered the domain name `derekzeng.me`. But I did know the reason. It was to find a job. It seems like people looking for web developers had an unspoken item to see on the R&eacute;sum&eacute;: __personal web site or blog__. It makes perfect sense for them as they can find the interests and personalities of the candidate from the content on the site. If the candidate made the site entirely by himself, that would be something huge when making the hiring decision.
+
+
+Ideally, this is the case. That's why I applied the domain name under my name and start a blog. I produced a lot of posts about the technologies since then. Many of them are specific to the problems I have encountered in my work. Others may be discoveries or understandings of some technologies. Almost all the articles are related to technology. And almost all of them has code snippets inside. I am not the kind of person who can write essays very well nor the patient ones. It is pretty common for me to throw in a few lines of code in the post to make it look substantial. The thoughts contained inside seems much more superficial than it looks. I look back on many of the posts, they are written in such a hasty way that some of the ideas are so contradictory and unthoughtful.
+
+
+
+{% img center /images/new-start.jpg %}
+
+I have been aware of the problems quite a while back and the solution I implemented was to review those posts one by one. It was not an easy task, especially I do not have so much free time nowadays. I edited some, but the quality are not up to my expectation. I find that, I should not write specific things like how I resolve this bug. This kind of topic is too dry and not interesting for people who have never encountered the issue before. Yes, I want to gain more audience in the future. Not any solo blog thing anymore. Another problem is the lack of elaboration. I listed down ideas in point form in the post but I rarely explain them in depth. I guess I was just too lazy to do so.
+
+Instead of keeping reviewing the articles, I archived them all. And here comes my new blog.
+
+
+The new blog will not be catering to my career needs any more. I will keep writing about the technologies in the future, but there will be much more diversity.
+
+In fact, I am a person who always think a lot. Like Economy, Politics or anything in life. I hope this blog space can be a place for me to meditate. And I will spend more efforts on the language used. Grammatical error should not be a thing in the future posts.

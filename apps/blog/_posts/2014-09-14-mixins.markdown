@@ -1,0 +1,136 @@
+---
+layout: post
+title: "Mixins"
+date: 2014-09-14 00:10:04 -0400
+comments: true
+categories: 
+- Software Engineering
+---
+
+We did a code refactoring recently. And on the client side, I want to extract common view behaviors out of each view and make a single object for them to inherit. I think this is a more sustainable way to keep the client side code in a manageable level.
+
+Examples of the behaviors are:
+
+1. form actions
+    1. press enter to submit
+    2. confirm on exit
+    3. trigger `save` event when `[data-action=save]` is clicked
+
+2. loader
+    1. disable all input controls when form is active
+    2. show loading icons
+
+I did try to use the `extend` method in `Backbone` to do this, but quickly ran into the common problem of single inheritance.
+
+Using single inheritance, I have to create a `GenericForm` class and inherit it and then a `GenericLoader` class to inherit. This is troublesome and hard to manage.
+
+I've seen people using mixins in Ruby class. It's kind of module system with the ability to allow a class to include multiple modules. I feel like to do the same.
+
+Thus, I've designed it to work like this
+
+``` javascript
+
+var CampaignForm = Mario.Layout.extend({
+
+    mixins: [Form, Loader],
+
+    className: 'campaign-form',
+
+    initialize: function (options) {
+    }
+});
+
+```
+
+`Mario` is my extension for `Backbone.Marionette`. So I have injected a `mixins` property for `Mario.View`.
+
+``` javascript
+// holder a reference to original constructor
+var MVContor = Marionette.View.prototype.constructor;
+Marionette.View.prototype.constructor = function (options) {
+
+    MVContor.apply(this, arguments);
+
+    // inject mixins here
+    this.listenTo(this, 'show', function () {
+
+        var that = this;
+
+        // need to defer to next frame so it fires after `onShow` method
+        _.defer(function () {
+            if (that.mixins) {
+                _.each(that.mixins, function (mixin) {
+                    if (_.isFunction(mixin._init)) {
+                        mixin._init.call(that);
+                    }
+                }, that);
+            }
+        }, 0);
+    });
+
+};
+
+```  
+
+So all the mixin object need to implement a `_init` method. It will be called after the `show` event of the view. The `_init` can be the only method exposed in the mixin while other helper methods are enclosed in the closure. 
+
+``` javascript
+function _initFormEvents () {
+
+    var formEvents = {
+        'keyup.form input': function (ev) {
+            var code = ev.keyCode || ev.which;
+
+            // ENTER
+            if (code === 13) {
+                this.trigger('save');
+                return false;
+            }
+
+            // ESCAPE
+            if (code === 27) {
+                this.trigger('cancel');
+                return false;
+            }
+        },
+
+        'click.form [data-action=cancel]': function () {
+            this.trigger('cancel');
+        },
+
+        'click.form [data-action=save]': function () {
+            this.trigger('save');
+        }
+    };
+
+    this.events = _.extend(this.events, formEvents);
+    this.delegateEvents();
+}
+
+var Form = {
+
+    _init: function () {
+        var that = this;
+
+        _initFormEvents.call(this);
+
+        this.on('cancel', function () {
+            if (_.isFunction(this.onCancel)) {
+                this.onCancel();
+            } else {
+                this.close();
+            }
+        });
+
+        this.on('save', function () {
+            if (_.isFunction(this.onSave)) {
+                this.onSave();
+            }
+        });
+    },
+};
+
+module.exports = Form;
+```
+
+

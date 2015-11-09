@@ -1,0 +1,39 @@
+html, body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    margin: 10px auto;
+    width: 600px;
+}
+
+header {
+    text-align: right;
+    font-weight: bold;
+}
+
+body {
+    padding-bottom: 50px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    background: grey;
+    color: silver;
+    margin: 0;
+    padding: 0;
+}
+footer div.content {
+    line-height: 50px;
+    margin: 0 auto;
+}
+
+ul {
+    list-style-type: upper-roman
+}

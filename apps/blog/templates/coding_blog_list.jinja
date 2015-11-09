@@ -1,0 +1,15 @@
+{% extends 'blog_base.jinja' %}
+
+{% block content %}
+<h2>
+    List of blogs
+</h2>
+
+<ul>
+    {% for p in posts %}
+    <li>
+        <a href='/bc/{{p}}'>{{p}}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

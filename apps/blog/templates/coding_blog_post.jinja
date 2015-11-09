@@ -1,0 +1,7 @@
+{% extends 'blog_base.jinja' %}
+{% block content %}
+    <h2>
+        {{meta.title}}
+    </h2>
+    {{post|safe}}
+{% endblock %}
